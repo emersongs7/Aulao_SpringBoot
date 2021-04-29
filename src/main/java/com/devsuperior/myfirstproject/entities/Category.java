@@ -4,19 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class Category implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Id // indicar qual dos campos serão o ID da tabela
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // indica que esse ID será auto incrementavel no banco
 	private Long id;
 	private String name;
 	
 	
 	/**
-	 * Essa annotation faz um pré processamento pra dizer que não é para serializar a lista de products de uma categoria
+	 * Essa annotation(@JsonIgnore)faz um pré processamento pra dizer que não é para serializar a lista de products de uma categoria
 	 */
-	@JsonIgnore  
+	@JsonIgnore
+	@OneToMany(mappedBy = "category") //é colocado o nome do atributo da outra classe, atributo e não o nome da chave q vai para o banco
 	private List<Product> products = new ArrayList<>();
 	
 	public Category() {

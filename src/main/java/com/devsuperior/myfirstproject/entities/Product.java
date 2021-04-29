@@ -2,13 +2,27 @@ package com.devsuperior.myfirstproject.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+
+@Entity // indica que é uma entidade gerenciada pelo JPA
 public class Product implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Id // indicar qual dos campos serão o ID da tabela
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // indica que esse ID será auto incrementavel no banco
 	private Long id;
 	private String name;
 	private Double price;
 	
+	@ManyToOne // indica q será muitos produtos para uma categoria
+	@JoinColumn(name = "category_id") //indica que será uma chave estrangeira e dá um nome para a chave no banco de dados
 	private Category category;
 	
 	public Product() {

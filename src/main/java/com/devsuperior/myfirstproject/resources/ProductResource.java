@@ -35,7 +35,7 @@ public class ProductResource {
 
 	@GetMapping(value = "/{id}") // para retornar 1 unico objeto
 	public ResponseEntity<Product> findById(@PathVariable Long id) {
-		Product cat = ProductRepository.findById(id);
+		Product cat = ProductRepository.findById(id).get();
 		return ResponseEntity.ok().body(cat); 
 	
 	}
